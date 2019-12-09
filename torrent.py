@@ -15,6 +15,7 @@ def get_page(url):
     return urllib2.urlopen(req).read()
 
 def go_to_next_page(souppage):
+  try:
     data = []
     fdata=[]
     datacol=[]
@@ -38,7 +39,11 @@ def go_to_next_page(souppage):
     Inputvalue=int(input("Enter the no.of torrent you wish to download:"))
     link = datacol[Inputvalue][1]
     return link
-
+  except KeyboardInterrupt:
+    # quit
+    print('\nTorrent terminated')
+    sys.exit()
+        
 def get_magnet(magnetsouppage):
     magnet_area = magnetsouppage.find_all('div', class_ = 'grey_bar1 back_none')
     magnet_anchor = magnet_area[1].find_all('a')
