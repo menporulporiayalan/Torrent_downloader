@@ -5,15 +5,21 @@ import webbrowser
 import json
 import time
 import subprocess
-from tkinter import *
-from tkinter import filedialog
 import os
 def get_page(url):
+  try:
     hdr={'User-Agent': 'Mozilla/5.0'}
     req = urllib2.Request("https:"+url, headers=hdr)
     print (req.__dict__)
     return urllib2.urlopen(req).read()
-
+  except KeyboardInterrupt:
+    # quit
+    print('\nTorrent terminated')
+    sys.exit()
+  else:
+    print("\nWebsite Blocked")
+    sys.exit()
+        
 def go_to_next_page(souppage):
   try:
     data = []

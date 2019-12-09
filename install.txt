@@ -1,7 +1,3 @@
-urllib2
+urllib3
 quote
-BeautifulSoup
-webbrowser
-json
-time
-tkinter
+BeautifulSoup4
