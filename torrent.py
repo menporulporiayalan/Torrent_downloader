@@ -4,14 +4,27 @@ from bs4 import BeautifulSoup
 import webbrowser
 import json
 import time
+import traceback
 import subprocess
 import os
+import socket
 def get_page(url):
     hdr={'User-Agent': 'Mozilla/5.0'}
-    req = urllib2.Request("https:"+url, headers=hdr)
-    print (req.__dict__)
-    return urllib2.urlopen(req).read()
-        
+    attempts =10
+    while attempts > 0: 
+        try:
+          req = urllib2.Request("https:"+url, headers=hdr)
+          print("https:"+url)
+          return urllib2.urlopen(req).read()
+        except socket.error as e:
+            print('error message received-->',e)
+            print('Connection refused. Retrying...')
+            attempts -= 1
+            time.sleep(2)
+            continue
+        except:
+          print('Error' + traceback.format_exc())
+
 def go_to_next_page(souppage):
   try:
     data = []
@@ -31,6 +44,9 @@ def go_to_next_page(souppage):
        simplearray.append(sd.get_text())
      datacol.append(simplearray)
     i=1
+    if not datacol:
+       print('We cannot find torrent for this keyword :(')
+       quit()
     for d in datacol:
          print (str(i)+') '+d[0]+'||'+d[4]+'||'+d[3]+'||'+d[5])
          i = i+1 
