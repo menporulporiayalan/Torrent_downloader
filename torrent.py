@@ -51,7 +51,7 @@ def go_to_next_page(souppage):
          print (str(i)+') '+d[0]+'||'+d[4]+'||'+d[3]+'||'+d[5])
          i = i+1 
     Inputvalue=int(input("Enter the no.of torrent you wish to download:"))
-    link = datacol[Inputvalue][1]
+    link = datacol[Inputvalue-1][1]
     return link
   except KeyboardInterrupt:
     # quit
